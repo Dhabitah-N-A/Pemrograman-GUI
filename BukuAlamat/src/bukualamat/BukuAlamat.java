@@ -5,10 +5,14 @@
  */
 package bukualamat;
 
+import bukualamat.model.DataPersonal;
+import bukualamat.view.ViewBukuAlamatController;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -27,11 +31,22 @@ public class BukuAlamat extends Application {
     
     private Stage stageAplikasi;
     private BorderPane rootAplikasi;
+    private ObservableList<DataPersonal> dataperson = FXCollections.observableArrayList();
+    
+    public BukuAlamat(){
+        dataperson.add(new DataPersonal("Budi", "Santaso"));
+        dataperson.add(new DataPersonal("Ahmad","Dahlan"));
+        dataperson.add(new DataPersonal("Hasyim","Asy'ari"));
+        dataperson.add(new DataPersonal("Anisa", "Baswededn"));
+        dataperson.add(new DataPersonal("Ridwan", "Kamil"));
+        
+    }
 
     @Override
     public void start(Stage PrimaryStage){
        this.stageAplikasi = PrimaryStage;
        this.stageAplikasi.setTitle("BUKU ALAMAT");
+       
        
        initGUIkerangka();
         try {
@@ -70,5 +85,13 @@ public class BukuAlamat extends Application {
        loader.setLocation(BukuAlamat.class.getResource("view/BukuAlamat.fxml"));
        AnchorPane guiIsi = (AnchorPane)loader.load();
        rootAplikasi.setCenter(guiIsi);
+       
+       ViewBukuAlamatController kontroler = loader.getController();
+       kontroler.setkelasUtama(this);
+       
+    }
+
+    public ObservableList<DataPersonal> getDataPersonal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
